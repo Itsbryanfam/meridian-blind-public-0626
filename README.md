@@ -18,7 +18,7 @@ meridian/
 │   └── config/       → Feature flags and shared config
 ├── db/
 │   ├── migrations/   → PostgreSQL schema
-│   └── seeds/        → Seed data directory
+│   └── seeds/         → Seed data directory
 ├── lib/              → Internal libraries and utilities
 ├── docs/
 │   ├── architecture/ → System design docs
@@ -74,3 +74,5 @@ make ci                # full local CI mirror
 - API errors: `{ "error": { "code", "message", "details" } }`
 - Never edit old DB migrations — add new numbered files
 - OpenAPI spec is the API contract source of truth
+
+<!-- CI trigger for QA: meridian-blind-public-0626 - latest CI fail investigation test -->
