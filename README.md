@@ -18,7 +18,7 @@ meridian/
 │   └── config/       → Feature flags and shared config
 ├── db/
 │   ├── migrations/   → PostgreSQL schema
-│   └── seeds/        → Seed data directory
+│   └── seeds/     → Seed data directory
 ├── lib/              → Internal libraries and utilities
 ├── docs/
 │   ├── architecture/ → System design docs

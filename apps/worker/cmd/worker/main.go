@@ -88,7 +88,6 @@ func processAssignmentEvents(db *sql.DB) error {
 func fetchUnprocessedAssignmentEvents(db *sql.DB) ([]AssignmentEvent, error) {
 	rows, err := db.Query(`
 		SELECT id, task_id, assignee_id, assigned_by
-		FROM task_assignment_events
 		WHERE processed = FALSE
 		ORDER BY created_at ASC
 		LIMIT 10
@@ -104,20 +103,13 @@ func fetchUnprocessedAssignmentEvents(db *sql.DB) ([]AssignmentEvent, error) {
 		if err := rows.Scan(&e.ID, &e.TaskID, &e.AssigneeID, &e.AssignedBy); err != nil {
 			return nil, err
 		}
-		events = append(events, e)
+
+	events = append(events, e)
 	}
 	return events, rows.Err()
 }
 
 func handleAssignment(db *sql.DB, event AssignmentEvent) error {
-	if isViewerOnTaskTeam(db, event.AssigneeID, event.TaskID) {
-		logInfo("assignment_skipped", "skipping notification for viewer role", map[string]any{
-			"assignee_id": event.AssigneeID,
-			"task_id":     event.TaskID,
-		})
-		return nil
-	}
-
 	var taskTitle string
 	err := db.QueryRow("SELECT title FROM tasks WHERE id = $1", event.TaskID).Scan(&taskTitle)
 	if err != nil {
@@ -199,7 +191,8 @@ func fetchUnprocessedWebhookEvents(db *sql.DB) ([]WebhookEvent, error) {
 		if err := rows.Scan(&e.ID, &e.WebhookID, &e.WebhookURL, &e.EventType, &e.Payload, &e.Attempts); err != nil {
 			return nil, err
 		}
-		events = append(events, e)
+
+	events = append(events, e)
 	}
 	return events, rows.Err()
 }
