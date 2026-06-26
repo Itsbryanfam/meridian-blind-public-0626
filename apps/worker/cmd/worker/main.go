@@ -88,6 +88,7 @@ func processAssignmentEvents(db *sql.DB) error {
 func fetchUnprocessedAssignmentEvents(db *sql.DB) ([]AssignmentEvent, error) {
 	rows, err := db.Query(`
 		SELECT id, task_id, assignee_id, assigned_by
+		FROM task_assignment_events
 		WHERE processed = FALSE
 		ORDER BY created_at ASC
 		LIMIT 10
