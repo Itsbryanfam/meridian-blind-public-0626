@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Verify OpenAPI spec, api-client, and contract manifest stay in sync."""
 
+# Trigger marker for Codegen-check workflow run on main (2026-06-26)
+
 from __future__ import annotations
 
 import json
